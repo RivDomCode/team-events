@@ -19,7 +19,7 @@ export const LoginScreen = () => {
           <div className="login-btn-container">
             <button>Log In</button>
           </div>
-        
+
         </form>
         <Link to="/register">Do not have an account yet? Go to register page</Link>
       </div>
