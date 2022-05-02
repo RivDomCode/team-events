@@ -1,0 +1,13 @@
+.login{
+    height: 100vh;
+    width: 100%;
+    background-color: $lightYelloW;
+    display: grid;
+    place-items: center;
+}
+
+.login-form-container{
+    background-color: $bgGray;
+    width: 75%;
+    height: 50vh;
+}
