@@ -6,7 +6,7 @@ export const RegisterScreen = () => {
     <div className='login'>
 
     <div className="login-form-container">
-      <form >
+      <form className='login-form'>
         <h2>Register</h2>
         <div className="input-container">
           <label htmlFor='name'>Name</label>
@@ -25,10 +25,11 @@ export const RegisterScreen = () => {
           <input type="email" id='password' className='input' />
         </div>
         <div className="login-btn-container">
-          <button>Create Account</button>
+          <button className='login-btn'>Register</button>
         </div>
+        <Link to="/">Already registered</Link>
+
       </form>
-      <Link to="/">Already registered</Link>
     </div>
   </div>
   )
