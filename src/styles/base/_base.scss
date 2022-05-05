@@ -1,18 +1,29 @@
 //Imports
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 //Fonts variables
 $mainFont: "Fira Sans Condensed", sans-serif, impact;
+
 //Color variables
 $bgGray: #EFEFEF;
 $black: #000000;
-$darkYelloW:#E7AB0A;
-$lightYelloW: #FCE097;
+$darkYellow:#E7AB0A;
+$lightYellow: #FCE097;
 $white:#FFFFFF;
 $darkOrange:#cd7000;
-//Functions
+
+//Functions for box shadow
 @mixin defaultShadow {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.20) 0px 4px 10px;
 }
+
+//function lighten yellow btns
+@mixin lightenBtns {
+  background-color:lighten($color: $darkYellow, $amount: 5);
+
+}
+
+//Global styles
 
 * {
     margin: 0;

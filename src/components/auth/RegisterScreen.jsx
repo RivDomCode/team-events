@@ -18,16 +18,16 @@ export const RegisterScreen = () => {
         </div>
         <div className="input-container">
           <label htmlFor='password'>Password</label>
-          <input type="email" id='password' className='input' />
+          <input type="password" id='password' className='input' />
         </div>
         <div className="input-container">
           <label htmlFor='password'>Repeat password</label>
-          <input type="email" id='password' className='input' />
+          <input type="password" id='password' className='input' />
         </div>
         <div className="login-btn-container">
           <button className='login-btn'>Register</button>
         </div>
-        <Link to="/">Already registered</Link>
+        <Link className='login-link' to="/">Already have an account! Go to login page</Link>
 
       </form>
     </div>

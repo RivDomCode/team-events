@@ -1,7 +1,7 @@
 .login{
     height: 100vh;
     width: 100%;
-    background-color: $lightYelloW;
+    background-color: $lightYellow;
 }
 
 .login-form-container{
@@ -13,13 +13,14 @@
 
 .login-form{
     background-color: $bgGray;
-    height:65%;
+    height:67%;
     width: 90%;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     padding: 24px;
     @include defaultShadow;
+
 }
 
 
@@ -52,7 +53,7 @@
 
 .input:focus{
     outline: none;
-    border:1.5px solid $darkYelloW;
+    border:1.5px solid $darkYellow;
 }
 
 .login-btn-container{
@@ -67,10 +68,24 @@
     font-size: 1.5rem;
     border: none;
     border-radius: 12px;
-    background-color: $darkYelloW;
+    background-color: $darkYellow;
     @include defaultShadow;
     color: $white;
     width: 50%;
     margin-top: 12px;
     cursor: pointer;
+
+    &:hover{
+        @include lightenBtns;
+    }
+}
+
+.login-link {
+    color: $darkYellow;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: underline;
+    padding: 8px;
+    margin-top: 16px;
+    text-align: center;
 }

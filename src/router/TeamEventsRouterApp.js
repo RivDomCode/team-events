@@ -12,9 +12,9 @@ export const TeamEventsRouterApp = () => {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LoginScreen/>} />
+      <Route path="login" element={<LoginScreen/>} />
       <Route path="register" element={<RegisterScreen/>}/>
-        <Route path="events-calendar" element={<EventsCalendarScreen/>} />
+        <Route path="/" element={<EventsCalendarScreen/>} />
     </Routes>
   </BrowserRouter> )
 }

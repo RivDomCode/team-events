@@ -1,0 +1,32 @@
+.navbar{
+    padding: 16px;
+    height: 9vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    @include defaultShadow
+}
+
+.navbar-user{
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+.navbar-logout-container{
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: none;
+    font-size: 1.4rem;
+    background-color: $darkYellow;
+    border-radius: 10px;
+    color: $white;
+    cursor: pointer;
+    @include defaultShadow;
+
+    &:hover{
+@include lightenBtns    }
+}

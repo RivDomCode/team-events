@@ -2,6 +2,8 @@
 
 MERN APP.
 
-Styled with SASS and plain CSSM.
+Styled with SASS and plain CSS.
 
-Icons taken form Google Icons
+Icons and fonts taken form Google Fonts.
+
+Calendar component: react-big-calendar
