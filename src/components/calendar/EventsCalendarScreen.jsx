@@ -4,6 +4,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent } from './CalendarEvent';
+import { Modal } from "./Modal";
 
   //setup for react-big-calendar
   const localizer = momentLocalizer(moment);
@@ -75,6 +76,7 @@ export const EventsCalendarScreen = () => {
       }}  //To personalize the event
       className='calendar-layout'
     />
+<Modal/>
     </main>
   )
 }
