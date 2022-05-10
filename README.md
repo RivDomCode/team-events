@@ -6,7 +6,7 @@ Styled with SASS and plain CSS.
 
 Icons and fonts taken form Google Fonts.
 
-Calendar component: react-big-calendar
+npm packages: react-big-calendar, react-datetime-picker
 
 Modal: react-modal
 

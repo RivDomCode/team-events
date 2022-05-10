@@ -18,7 +18,7 @@
 .modal-form-container{
     background-color:$bgGray;
     height: 80%;
-    width: 50vw;
+    width: 60vw;
     border-radius: 10px;
     padding: 16px;
     @include defaultShadow;
@@ -28,6 +28,35 @@
     text-align: center;
     text-transform: uppercase;
 }
+
+.react-datetimepicker-container{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    justify-content: center;
+    font-size: 1.2rem;
+    border-radius: 10px;
+
+}
+
+.react-datetimepicker-container label {text-align: center;
+padding: 4px;}
+
+.react-datetime-picker{
+    background-color: $white;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.react-datetime-picker__wrapper{
+    border: 0px solid gray !important;
+
+}
+
+.react-datetime-picker:focus{
+    outline: none;
+}
+
 
 .modal-input-container{
     display: flex;
