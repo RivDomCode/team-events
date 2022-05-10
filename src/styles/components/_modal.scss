@@ -3,20 +3,73 @@
     top: 0;
     left: 0;
     background-color: $lightYellow;
+    opacity: 0.9;
     height: 100vh;
     width: 100vw;
     z-index: 10;
-    opacity: 0.8;
     display: grid;
     place-items: center;
-    overflow-y: hidden;
+}
+
+.material-symbols-outlined{
+    cursor: pointer;
 }
 
 .modal-form-container{
-    background-color: $bgGray;
-    height: 50vh;
+    background-color:$bgGray;
+    height: 80%;
     width: 50vw;
     border-radius: 10px;
+    padding: 16px;
     @include defaultShadow;
-    opacity:1;
+}
+
+.modal-form-container h2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.modal-input-container{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.modal-input-container label{
+    text-align: center;
+}
+
+.modal-input-container input, textarea{
+    font-size: 1.2rem;
+    padding: 4px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 16px;
+
+}
+
+.add-event-btn{
+    display: flex;
+    justify-content: center;
+}
+
+.add-event-btn{
+    padding: 12px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 12px;
+    background-color: $darkYellow;
+    @include defaultShadow;
+    margin: auto;
+    text-align: center;
+    color: $white;
+    width: 50%;
+    margin-top: 12px;
+    cursor: pointer;
+
+    &:hover{
+        @include lightenBtns;
+    }
 }

@@ -24,7 +24,8 @@ export const EventsCalendarScreen = () => {
 
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");
-
+  //to open-close modal
+  const [isOpen, setIsOpen] = useState(false);
 
 
   //Event to trigger the modal when I double Click ot edit the event
@@ -75,8 +76,9 @@ export const EventsCalendarScreen = () => {
         event: CalendarEvent
       }}  //To personalize the event
       className='calendar-layout'
+
     />
-<Modal/>
+    { isOpen && <Modal/>}
     </main>
   )
 }
