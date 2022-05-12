@@ -39,8 +39,11 @@
 
 }
 
-.react-datetimepicker-container label {text-align: center;
-padding: 4px;}
+.react-datetimepicker-container label {
+
+    padding: 8px;
+    font-weight: bold;
+}
 
 .react-datetime-picker{
     background-color: $white;
@@ -67,7 +70,7 @@ padding: 4px;}
 }
 
 .modal-input-container label{
-    text-align: center;
+    font-weight: bold;
 }
 
 .modal-input-container input, textarea{

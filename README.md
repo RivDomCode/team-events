@@ -8,6 +8,6 @@ Icons and fonts taken form Google Fonts.
 
 npm packages: react-big-calendar, react-datetime-picker
 
-Modal: react-modal
+Error alerts: sweetAlert2;
 
 
