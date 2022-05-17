@@ -1,10 +1,17 @@
+import { Provider } from "react-redux";
 import { TeamEventsRouterApp } from "./router/TeamEventsRouterApp";
+import { store } from "./store/store";
+
 
 
 function App() {
   return (
-    <div className="Team-Events-App">
-<TeamEventsRouterApp/>    </div>
+    <Provider store={ store }>
+        <TeamEventsRouterApp/>
+    </Provider>
+    // <div className="Team-Events-App">
+
+    // </div>
   );
 }
 

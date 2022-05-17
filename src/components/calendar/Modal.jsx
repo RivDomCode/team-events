@@ -66,6 +66,8 @@ export const Modal = () => {
       })
     }
 
+    //TODO: function to close modal and save in database
+
   }
 
   return (
