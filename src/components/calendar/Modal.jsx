@@ -3,7 +3,7 @@ import DateTimePicker from "react-datetime-picker";
 import Swal from 'sweetalert2'
 
 
-export const Modal = () => {
+export const Modal = ( {closeModal} ) => {
 
   //react-datetime
   const [dateStart, setDateStart] = useState(new Date());
@@ -73,7 +73,7 @@ export const Modal = () => {
   return (
     <section className="modal-container">
       <div className="modal-form-container">
-        <span class="material-symbols-outlined">close</span>
+        <span class="material-symbols-outlined" onClick={closeModal}>close</span>
         <h2>New event</h2>
         <form onSubmit={handleSubmitForm}>
           <div className="react-datetimepicker-container">

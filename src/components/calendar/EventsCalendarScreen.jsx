@@ -25,12 +25,16 @@ export const EventsCalendarScreen = () => {
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");
   //to open-close modal
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
 
   //Event to trigger the modal when I double Click ot edit the event
   const onDoubleClick = (e) => {
-    console.log(e)
+    setIsOpen(true);
+  }
+  //close modal
+  const closeModal = () =>{
+    setIsOpen(false);
   }
 
   //Event triggered when I select the event
@@ -78,7 +82,7 @@ export const EventsCalendarScreen = () => {
       className='calendar-layout'
 
     />
-    { isOpen && <Modal/>}
+    { isOpen && <Modal closeModal={closeModal}/>}
     </main>
   )
 }
