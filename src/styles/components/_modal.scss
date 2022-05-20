@@ -4,8 +4,8 @@
     left: 0;
     background-color: $lightYellow;
     opacity: 0.9;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     z-index: 10;
     display: grid;
     place-items: center;
@@ -17,8 +17,8 @@
 
 .modal-form-container{
     background-color:$bgGray;
-    height: 80%;
-    width: 60vw;
+    height: 100%;
+    width: 80%;
     border-radius: 10px;
     padding: 16px;
     @include defaultShadow;
