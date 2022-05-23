@@ -20,7 +20,6 @@ $darkOrange:#cd7000;
 //function lighten yellow btns
 @mixin lightenBtns {
   background-color:lighten($color: $darkYellow, $amount: 5);
-
 }
 
 //Global styles

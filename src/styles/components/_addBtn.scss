@@ -1,0 +1,21 @@
+.add-btn{
+    border-radius: 50px;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: $darkYellow;
+    height: 85px;
+    width: 85px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    color:$white;
+    @include defaultShadow;
+    &:hover{
+        @include lightenBtns
+    }
+}
+
+.material-symbols-outlined{
+    font-size: 1.4rem;
+}

@@ -4,7 +4,7 @@ MERN APP.
 
 Styled with SASS and plain CSS.
 
-Icons and fonts taken form Google Fonts.
+Icons and fonts taken from Google Fonts.
 
 npm packages: react-big-calendar, react-datetime-picker
 
