@@ -5,25 +5,20 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent } from './CalendarEvent';
 import { Modal } from "./Modal";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { eventSetActive } from "../../actions/events";
 import { AddBtn } from "../ui/AddBtn";
 
   //setup for react-big-calendar
   const localizer = momentLocalizer(moment);
   //events -->follow react-big-calendar docs
-  const events= [{
-    title:"new event",
-    start: moment().toDate(),  //initial date using moment
-    end: moment().add(2, "hours").toDate(),    //final date, I added 2 hours
-    notes: "detail of the events ares bklalalvl",
-    user: {
-      _id:"123",
-      name: "Manolo"
-    }
-  }];
+
 
 export const EventsCalendarScreen = () => {
+
+  //get data from store
+  const { events } = useSelector(state => state.calendar);
+  console.log(events)
 
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");

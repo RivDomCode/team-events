@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import DateTimePicker from "react-datetime-picker";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { useDispatch} from "react-redux";
+import { eventAddNew } from "../../actions/events";
 
 
 export const Modal = ( {closeModal} ) => {
+
+  //useDispatch
+  const dispatch = useDispatch();
 
   //react-datetime
   const [dateStart, setDateStart] = useState(new Date());
@@ -67,6 +72,14 @@ export const Modal = ( {closeModal} ) => {
     }
 
     //TODO: function to close modal and save in database
+    //add new event
+    dispatch(eventAddNew({
+      ...formValues,
+      id: new Date().getTime()
+    }));
+
+    //close modal after add new event
+    closeModal();
 
   }
 
