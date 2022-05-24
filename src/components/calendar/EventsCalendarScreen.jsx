@@ -38,6 +38,9 @@ const dispatch = useDispatch()
   //Event triggered when I select the event
   const onSelectEvent = (e)=>{
     dispatch(eventSetActive(e));
+  }
+
+  const onDoubleClick = (e) => {
     openModal();
   }
 
@@ -71,7 +74,7 @@ const dispatch = useDispatch()
       startAccessor="start"
       endAccessor="end"
       eventPropGetter = {eventStyleGetter} //for style
-
+      onDoubleClickEvent= {onDoubleClick}
       onView={onViewChange}
       onSelectEvent={onSelectEvent}
       view={lastView}
