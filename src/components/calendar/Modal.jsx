@@ -1,28 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector} from "react-redux";
+import { eventAddNew, eventUpdated } from "../../actions/events";
+
+import moment from 'moment';
 import DateTimePicker from "react-datetime-picker";
 import Swal from 'sweetalert2';
-import { useDispatch} from "react-redux";
-import { eventAddNew } from "../../actions/events";
 
+const now = moment().minutes(0).seconds(0).add(1,'hours'); // 3:00:00
+const nowPlus1 = now.clone().add(1, 'hours');
+const initEvent = {
+  title: "",
+  notes: "",
+  start: now.toDate(),
+  end: nowPlus1.toDate()
+}
 
 export const Modal = ( {closeModal} ) => {
 
   //useDispatch
   const dispatch = useDispatch();
+  //get activeEvent from store
+  const { activeEvent } = useSelector(state => state.calendar);
 
   //react-datetime
-  const [dateStart, setDateStart] = useState(new Date());
-  const [dateEnd, setDateEnd] = useState(new Date());
+  const [dateStart, setDateStart] = useState(now.toDate());
+  const [dateEnd, setDateEnd] = useState(nowPlus1.toDate());
 
   //get data from form
-  const [formValues, setFormValues] = useState({
-    title: "",
-    notes: "",
-    start: new Date(),
-    end: new Date(),
-  });
+  const [formValues, setFormValues] = useState(initEvent);
 
   const { title, notes, start, end } = formValues;
+  //useEffect to listen changes in activeEvent
+
+  useEffect(() => {
+    if (activeEvent) {
+      setFormValues(activeEvent)
+    } else {
+      setFormValues(initEvent)
+    }
+  }, [activeEvent, setFormValues])
+
 
   const hanldeInputChange = (e) => {
     setFormValues({
@@ -30,6 +47,8 @@ export const Modal = ( {closeModal} ) => {
       [e.target.name] : e.target.value
     })
   }
+
+
 
   //dates
   const handleStartDate = (e) => {
@@ -52,8 +71,11 @@ export const Modal = ( {closeModal} ) => {
   const handleSubmitForm = (e)=>{
     e.preventDefault();
 
+    const momentStart = moment( start );
+    const momentEnd = moment( end );
+
     //form validations
-    if(start >= end) {
+    if(momentStart.isSameOrAfter(momentEnd)) {
      return  Swal.fire({
         title: 'Error!',
         text: 'Start date cannot be equal or higher than end date',
@@ -70,14 +92,17 @@ export const Modal = ( {closeModal} ) => {
         confirmButtonText: 'Ok'
       })
     }
-
+    //edit an event
+    if(activeEvent) {
+      dispatch(eventUpdated(formValues))
+    } else {
     //TODO: function to close modal and save in database
     //add new event
     dispatch(eventAddNew({
       ...formValues,
       id: new Date().getTime()
     }));
-
+    }
     //close modal after add new event
     closeModal();
 
@@ -87,7 +112,7 @@ export const Modal = ( {closeModal} ) => {
     <section className="modal-container">
       <div className="modal-form-container">
         <span class="material-symbols-outlined" onClick={closeModal}>close</span>
-        <h2>New event</h2>
+        <h2>{(activeEvent) ? "Edit Event" : "New Event"}</h2>
         <form onSubmit={handleSubmitForm}>
           <div className="react-datetimepicker-container">
             <label>Starting date and time</label>

@@ -6,8 +6,9 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent } from './CalendarEvent';
 import { Modal } from "./Modal";
 import { useDispatch, useSelector} from "react-redux";
-import { eventSetActive } from "../../actions/events";
+import {  eventClearActiveEvent, eventSetActive } from "../../actions/events";
 import { AddBtn } from "../ui/AddBtn";
+import { DeleteBtn } from "../ui/DeleteBtn";
 
   //setup for react-big-calendar
   const localizer = momentLocalizer(moment);
@@ -17,8 +18,7 @@ import { AddBtn } from "../ui/AddBtn";
 export const EventsCalendarScreen = () => {
 
   //get data from store
-  const { events } = useSelector(state => state.calendar);
-  console.log(events)
+  const { events, activeEvent } = useSelector(state => state.calendar);
 
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");
@@ -31,6 +31,7 @@ export const EventsCalendarScreen = () => {
   //close modal
   const closeModal = () =>{
     setIsOpen(false);
+    dispatch(eventClearActiveEvent())
   }
 
 //useDispatch to send the action to reducer
@@ -49,6 +50,10 @@ const dispatch = useDispatch()
   const onViewChange = (e) => {
     setLastView(e);
     localStorage.setItem('lastview', e);
+  }
+
+  const onSelectSlot = (e) => {
+    dispatch(eventClearActiveEvent(e))
   }
 
 
@@ -76,6 +81,8 @@ const dispatch = useDispatch()
       eventPropGetter = {eventStyleGetter} //for style
       onDoubleClickEvent= {onDoubleClick}
       onView={onViewChange}
+      onSelectSlot={onSelectSlot}
+      selectable={true}
       onSelectEvent={onSelectEvent}
       view={lastView}
       components={{
@@ -85,6 +92,9 @@ const dispatch = useDispatch()
 
     />
     <AddBtn openModal={openModal}/>
+
+    {(activeEvent) && <DeleteBtn /> }
+
     { isOpen && <Modal closeModal={closeModal}/>}
     </main>
   )

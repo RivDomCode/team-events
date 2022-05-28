@@ -9,9 +9,6 @@ function App() {
     <Provider store={ store }>
         <TeamEventsRouterApp/>
     </Provider>
-    // <div className="Team-Events-App">
-
-    // </div>
   );
 }
 
