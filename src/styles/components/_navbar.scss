@@ -13,7 +13,11 @@
     letter-spacing: 1px;
     font-size: 1.8rem;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
 }
+
+
 
 .navbar-logout-container{
     display: flex;

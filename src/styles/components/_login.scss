@@ -1,7 +1,18 @@
 .login{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     background-color: $lightYellow;
+    display: flex;
+}
+
+@media(max-width:786px){
+    .login{
+        flex-direction: column;
+    }
+}
+
+.register{
+    background-color: $bgGray;
 }
 
 .login-form-container{
@@ -18,13 +29,30 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 8px;
     @include defaultShadow;
 
 }
 
+.register-form{
+    background-color: $lightYellow;
+    height:67%;
+    width: 90%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    @include defaultShadow;
+}
+
 
 .login-form h2{
+    text-align: center;
+    padding: 20px;
+    font-size: 3rem;
+}
+
+.register-form h2{
     text-align: center;
     padding: 20px;
     font-size: 3rem;

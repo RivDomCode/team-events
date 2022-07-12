@@ -2,19 +2,28 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 import { LoginScreen } from "../components/auth/LoginScreen";
-import { RegisterScreen } from "../components/auth/RegisterScreen";
 import { EventsCalendarScreen } from "../components/calendar/EventsCalendarScreen";
 
 
 export const TeamEventsRouterApp = () => {
+
+  const authStatus = "non-auh";
+
+
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="login" element={<LoginScreen/>} />
-      <Route path="register" element={<RegisterScreen/>}/>
-        <Route path="/" element={<EventsCalendarScreen/>} />
+      {
+        (authStatus === "non-auth")
+        ? <Route path="/login" element={<LoginScreen/>} />
+        : <Route path="/*" element={<EventsCalendarScreen/>} />
+      }
+
+      <Route path="/*" element={<Navigate to="/login"/>}/>
+
     </Routes>
   </BrowserRouter> )
 }
