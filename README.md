@@ -1,4 +1,4 @@
-#Team-events app
+#Team-events app frontend
 
 MERN APP.
 
