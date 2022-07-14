@@ -10,7 +10,7 @@ import { EventsCalendarScreen } from "../components/calendar/EventsCalendarScree
 
 export const TeamEventsRouterApp = () => {
 
-  const authStatus = "non-auh";
+  const authStatus = "non-auth";
 
 
   return (

@@ -1,50 +1,49 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import  { useState } from "react"
+import { Register } from "./Register"
 
 export const LoginScreen = () => {
+
+  const loginFormFields ={
+    loginEmail:"",
+    loginPassword:""
+  }
+
+  const [loginValue, setLoginValue] = useState(loginFormFields);
+
+  const { loginEmail, loginPassword } = loginValue;
+
+  const handleLoginChange = ({target}) => {
+    setLoginValue({
+      ...loginValue,
+      [target.name]:target.value,
+    })
+  }
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    console.log({ loginEmail, loginPassword});
+  }
+
+
   return (
     <div className='login'>
-
       <div className="login-form-container">
-        <form className='login-form'>
+        <form className='login-form' onSubmit={handleLoginSubmit}>
           <h2>Login</h2>
           <div className="input-container">
             <label htmlFor='email'>Email address</label>
-            <input type="email" id='email' className='input' />
+            <input type="text" id='email' className='input' name="loginEmail" value={loginEmail} onChange={handleLoginChange}/>
           </div>
           <div className="input-container">
             <label htmlFor='password'>Password</label>
-            <input type="password" id='password' className='input' />
+            <input type="password" id='password' className='input' name="loginPassword" value={loginPassword} onChange={handleLoginChange}/>
           </div>
           <div className="login-btn-container">
-            <button className='login-btn'>Log In</button>
+            <button className='login-btn' type="submit">Log In</button>
           </div>
         </form>
       </div>
-      <div className="login-form-container register">
-      <form className='register-form'>
-        <h2>Register</h2>
-        <div className="input-container">
-          <label htmlFor='name'>Name</label>
-          <input type="name" id='name' className='input' />
-        </div>
-        <div className="input-container">
-          <label htmlFor='email'>Email address</label>
-          <input type="email" id='email' className='input' />
-        </div>
-        <div className="input-container">
-          <label htmlFor='password'>Password</label>
-          <input type="password" id='password' className='input' />
-        </div>
-        <div className="input-container">
-          <label htmlFor='password'>Repeat password</label>
-          <input type="password" id='password' className='input' />
-        </div>
-        <div className="login-btn-container">
-          <button className='login-btn'>Register</button>
-        </div>
-      </form>
-    </div>
+      <Register/>
     </div>
   )
 }
