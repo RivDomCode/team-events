@@ -1,7 +1,13 @@
 import  { useState } from "react"
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { Error } from "./Error";
 import { Register } from "./Register"
 
 export const LoginScreen = () => {
+
+  const { startLogin} = useAuthStore();
+
+  const [error, setError] = useState(false);
 
   const loginFormFields ={
     loginEmail:"",
@@ -21,7 +27,14 @@ export const LoginScreen = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log({ loginEmail, loginPassword});
+    if([loginEmail, loginPassword].includes("")){
+      setError(true);
+      return;
+    }
+      setError(false)
+      console.log({ loginEmail, loginPassword})
+      startLogin({ email: loginEmail, password:loginPassword});
+
   }
 
 
@@ -32,7 +45,7 @@ export const LoginScreen = () => {
           <h2>Login</h2>
           <div className="input-container">
             <label htmlFor='email'>Email address</label>
-            <input type="text" id='email' className='input' name="loginEmail" value={loginEmail} onChange={handleLoginChange}/>
+            <input type="email" id='email' className='input' name="loginEmail" value={loginEmail} onChange={handleLoginChange}/>
           </div>
           <div className="input-container">
             <label htmlFor='password'>Password</label>
@@ -41,6 +54,7 @@ export const LoginScreen = () => {
           <div className="login-btn-container">
             <button className='login-btn' type="submit">Log In</button>
           </div>
+          { error && <Error msg="All fields are required"/>}
         </form>
       </div>
       <Register/>

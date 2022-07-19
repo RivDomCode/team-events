@@ -1,6 +1,10 @@
-import {useState} from 'react'
+import {useState} from 'react';
+import { Error } from "./Error";
 
 export const Register = () => {
+
+  //form error
+  const [error, setError] = useState(false);
 
     const registerFormFields ={
         name:"",
@@ -22,7 +26,15 @@ export const Register = () => {
     
       const handleRegisterSubmit = (e) => {
         e.preventDefault();
+        e.preventDefault();
+        if([name, registerEmail, registerPassword, registerPasswordRep].includes("")){
+          setError(true);
+          return;
+        }
+        setError(false)
         console.log({ name, registerEmail, registerPassword, registerPasswordRep});
+        setRegisterValue(registerFormFields)
+
       }
 
   return (
@@ -35,7 +47,7 @@ export const Register = () => {
       </div>
       <div className="input-container">
         <label htmlFor='email'>Email address</label>
-        <input type="text" id='email' className='input' name='registerEmail' value={registerEmail} onChange={handleRegisterChange}/>
+        <input type="email" id='email' className='input' name='registerEmail' value={registerEmail} onChange={handleRegisterChange}/>
       </div>
       <div className="input-container">
         <label htmlFor='password'>Password</label>
@@ -47,8 +59,11 @@ export const Register = () => {
       </div>
       <div className="login-btn-container">
         <button className='login-btn'>Register</button>
+
       </div>
+      {error && <Error msg="All fields are required"/> }
     </form>
+
     </div>
   )
 }

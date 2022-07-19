@@ -41,28 +41,29 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 8px;
     @include defaultShadow;
 }
 
 
 .login-form h2{
     text-align: center;
-    padding: 20px;
-    font-size: 3rem;
+    padding: 12px;
+    font-size: 2.5rem;
+    color: $darkYellow;
 }
 
 .register-form h2{
     text-align: center;
-    padding: 20px;
-    font-size: 3rem;
+    padding: 12px;
+    font-size: 2.5rem;
 }
 
 .input-container{
     display: flex;
     flex-direction: column;
     padding: 8px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 300;
 }
 
 .input-container label{
