@@ -1,10 +1,15 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import Swal from 'sweetalert2';
+import { useAuthStore } from '../../hooks/useAuthStore';
 import { Error } from "./Error";
 
 export const Register = () => {
 
+  const { startRegister, errorMessage } =  useAuthStore();
+
   //form error
   const [error, setError] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
 
     const registerFormFields ={
         name:"",
@@ -26,16 +31,34 @@ export const Register = () => {
     
       const handleRegisterSubmit = (e) => {
         e.preventDefault();
-        e.preventDefault();
         if([name, registerEmail, registerPassword, registerPasswordRep].includes("")){
           setError(true);
           return;
         }
         setError(false)
         console.log({ name, registerEmail, registerPassword, registerPasswordRep});
-        setRegisterValue(registerFormFields)
+        setRegisterValue(registerFormFields);
+
+        if( registerPassword !== registerPasswordRep) {
+          setErrorPassword(true);
+
+          setTimeout(() => {
+            setErrorPassword(false)
+          }, 3000);
+        }
+
+        startRegister( { name, email: registerEmail, password: registerPassword});
 
       }
+
+      useEffect(()=>{
+
+        if(errorMessage!==undefined){
+          Swal.fire("Wrong registration", errorMessage, "error")
+        }
+    
+    
+      }, [errorMessage])
 
   return (
     <div className="login-form-container register">
@@ -62,6 +85,7 @@ export const Register = () => {
 
       </div>
       {error && <Error msg="All fields are required"/> }
+      {errorPassword && <Error msg="Passwords must be the same"/> }
     </form>
 
     </div>

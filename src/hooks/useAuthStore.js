@@ -14,7 +14,7 @@ export const useAuthStore = () => {
             dispatch(onChecking());
 
         try {
-            const {data } = await calendarApi.post('/auth', {email, password});
+            const { data } = await calendarApi.post('/auth', {email, password});
             localStorage.setItem('token', data.token);
             dispatch(onLogin({ name: data.name, uid: data.uid}));
 
@@ -22,10 +22,25 @@ export const useAuthStore = () => {
             dispatch(onLogout('Wrong user details'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
-            }, 1);
+            }, 10);
         }
 
     }
+
+    const startRegister = async( {name, email, password, passwordRep})=> {
+        try {
+            const { data } = await calendarApi.post('/auth/new', {name, email, password});
+            localStorage.setItem('token', data.token);
+            dispatch(onLogin({ name: data.name, uid: data.uid}));
+        } catch (error) {
+            console.log(error)
+            dispatch(onLogout("An user with this email already exists"));
+            setTimeout(() => {
+                dispatch(clearErrorMessage());
+            }, 10);
+        }
+    }
+
     return {
         //propiedades para interactuar con nuestro store
         status,
@@ -33,6 +48,7 @@ export const useAuthStore = () => {
         user,
         //métodos para interactuar con nuestro store
         startLogin,
+        startRegister
 
     }
 }
