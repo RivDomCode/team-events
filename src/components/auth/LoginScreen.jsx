@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import  { useState } from "react"
 import { useAuthStore } from "../../hooks/useAuthStore";
 import { Error } from "./Error";
@@ -5,7 +6,21 @@ import { Register } from "./Register"
 
 export const LoginScreen = () => {
 
-  const { startLogin} = useAuthStore();
+  const { startLogin, errorMessage} = useAuthStore();
+  const [errorAuth, setErrorAuth] = useState(false);
+
+  useEffect(()=>{
+
+    if(errorMessage!==undefined){
+      setErrorAuth(true);
+    }
+   setTimeout(() => {
+      setErrorAuth(false);
+      setLoginValue(loginFormFields)
+   }, 3000);
+
+  }, [errorMessage])
+  
 
   const [error, setError] = useState(false);
 
@@ -55,6 +70,7 @@ export const LoginScreen = () => {
             <button className='login-btn' type="submit">Log In</button>
           </div>
           { error && <Error msg="All fields are required"/>}
+          { errorAuth && <Error msg="Wrong user or password"/>}
         </form>
       </div>
       <Register/>
