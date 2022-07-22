@@ -47,8 +47,6 @@ export const LoginScreen = () => {
     if(errorMessage!==undefined){
       Swal.fire("Wrong authentification", errorMessage, "error")
     }
-
-
   }, [errorMessage])
 
 

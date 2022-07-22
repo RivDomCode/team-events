@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -6,18 +7,27 @@ import {
 } from "react-router-dom";
 import { LoginScreen } from "../components/auth/LoginScreen";
 import { EventsCalendarScreen } from "../components/calendar/EventsCalendarScreen";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 
 export const TeamEventsRouterApp = () => {
+  const { status, checkAuthToken} =  useAuthStore()
 
-  const authStatus = "non-auth";
+  useEffect(() => {
+    checkAuthToken();
+  }, [])
 
+  if ( status === "checking") {
+    return (
+      <h3>Loading....</h3>
+    )
+  }
 
   return (
     <BrowserRouter>
     <Routes>
       {
-        (authStatus === "non-auth")
+        (status === "non-auth")
         ? <Route path="/login" element={<LoginScreen/>} />
         : <Route path="/*" element={<EventsCalendarScreen/>} />
       }

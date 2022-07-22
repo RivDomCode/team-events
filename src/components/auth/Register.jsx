@@ -56,8 +56,6 @@ export const Register = () => {
         if(errorMessage!==undefined){
           Swal.fire("Wrong registration", errorMessage, "error")
         }
-    
-    
       }, [errorMessage])
 
   return (
