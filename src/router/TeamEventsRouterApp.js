@@ -27,12 +27,22 @@ export const TeamEventsRouterApp = () => {
     <BrowserRouter>
     <Routes>
       {
-        (status === "non-auth")
-        ? <Route path="/login" element={<LoginScreen/>} />
-        : <Route path="/*" element={<EventsCalendarScreen/>} />
+        (status === "not-authenticated")
+
+        ? (
+            <>
+            <Route path="/auth/*" element={<LoginScreen/>} />
+            <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+            </>
+           )
+        : (
+            <>
+              <Route path="/" element={<EventsCalendarScreen/>} />
+              <Route path="/*" element={ <Navigate to="/" /> } />
+            </>
+          )
       }
 
-      <Route path="/*" element={<Navigate to="/login"/>}/>
 
     </Routes>
   </BrowserRouter> )

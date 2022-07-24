@@ -6,7 +6,7 @@ export const authSlice = createSlice( {
     initialState:{
         status: "checking", //"auth", "not-auth",
         user:{}, //info del usuario
-        errorMessage: undefined
+        errorMessage: undefined,
     },
 
     //objetivo de los reducers es generar un nuevo state
@@ -17,16 +17,16 @@ export const authSlice = createSlice( {
             state.errorMessage= undefined;
         },
         onLogin: (state, { payload }) => {
-            state.status= "auth";//"auth", "not-auth",
+            state.status= "authenticated";//"auth", "not-auth",
             state.user=payload;//info del usuario
             state.errorMessage= undefined;
         },
         onLogout: (state, { payload }) => {
-            state.status= "non-auth";//"auth", "not-auth",
+            state.status= "not-authenticated";//"auth", "not-auth",
             state.user={};
             state.errorMessage= payload;
         },
-        clearErrorMessage: (state, { payload})=>{
+        clearErrorMessage: (state)=>{
             state.errorMessage= undefined;
         }
     },

@@ -1,75 +1,94 @@
 import { useEffect } from "react";
-import  { useState } from "react"
 import Swal from "sweetalert2";
-import { useAuthStore } from "../../hooks/useAuthStore";
-import { Error } from "./Error";
-import { Register } from "./Register"
+import { useAuthStore, useForm } from '../../hooks';
+
+const loginFormFields = {
+  loginEmail:    '',
+  loginPassword: '',
+}
+
+const registerFormFields = {
+  name:      '',
+  registerEmail:     '',
+  registerPassword:  '',
+  registerPasswordRep: '',
+}
 
 export const LoginScreen = () => {
 
-  const { startLogin, errorMessage} = useAuthStore();
 
+  const { startLogin, errorMessage, startRegister} = useAuthStore();
 
+  const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm( loginFormFields );
+  const { registerEmail, name, registerPassword, registerPasswordRep, onInputChange:onRegisterInputChange } = useForm( registerFormFields );
 
+const loginSubmit = ( event ) => {
+  event.preventDefault();
+  startLogin({ email: loginEmail, password: loginPassword });
+}
 
-  const [error, setError] = useState(false);
-
-  const loginFormFields ={
-    loginEmail:"",
-    loginPassword:""
-  }
-
-  const [loginValue, setLoginValue] = useState(loginFormFields);
-
-  const { loginEmail, loginPassword } = loginValue;
-
-  const handleLoginChange = ({target}) => {
-    setLoginValue({
-      ...loginValue,
-      [target.name]:target.value,
-    })
-  }
-
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    if([loginEmail, loginPassword].includes("")){
-      setError(true);
+const registerSubmit = ( event ) => {
+  event.preventDefault();
+  if ( registerPassword !== registerPasswordRep ) {
+      Swal.fire('Error en registro', 'Passwords must be the same', 'error');
       return;
-    }
-      setError(false)
-      console.log({ loginEmail, loginPassword})
-      startLogin({ email: loginEmail, password:loginPassword});
-
   }
 
-  useEffect(()=>{
+  startRegister({ name: name, email: registerEmail, password: registerPassword });
+}
 
-    if(errorMessage!==undefined){
-      Swal.fire("Wrong authentification", errorMessage, "error")
-    }
-  }, [errorMessage])
+useEffect(() => {
+  console.log(errorMessage);
+  if( errorMessage !== undefined) {
+    Swal.fire('Error in authentification', errorMessage, "error")
+  }
+}, [errorMessage])
 
 
   return (
     <div className='login'>
       <div className="login-form-container">
-        <form className='login-form' onSubmit={handleLoginSubmit}>
+        <form className='login-form' onSubmit={loginSubmit }>
           <h2>Login</h2>
           <div className="input-container">
             <label htmlFor='email'>Email address</label>
-            <input type="email" id='email' className='input' name="loginEmail" value={loginEmail} onChange={handleLoginChange}/>
+            <input type="email" id='email' className='input' name="loginEmail" value={loginEmail} onChange={onLoginInputChange}/>
           </div>
           <div className="input-container">
             <label htmlFor='password'>Password</label>
-            <input type="password" id='password' className='input' name="loginPassword" value={loginPassword} onChange={handleLoginChange}/>
+            <input type="password" id='password' className='input' name="loginPassword" value={loginPassword} onChange={onLoginInputChange}/>
           </div>
           <div className="login-btn-container">
             <button className='login-btn' type="submit">Log In</button>
           </div>
-          { error && <Error msg="All fields are required"/>}
         </form>
       </div>
-      <Register/>
+      <div className="login-form-container register">
+    <form className='register-form' onSubmit={registerSubmit}>
+      <h2>Register</h2>
+      <div className="input-container">
+        <label htmlFor='name'>Name</label>
+        <input type="text" id='name' className='input' name='name' value={name} onChange={onRegisterInputChange}/>
+      </div>
+      <div className="input-container">
+        <label htmlFor='email'>Email address</label>
+        <input type="email" id='email' className='input' name='registerEmail' value={registerEmail} onChange={onRegisterInputChange}/>
+      </div>
+      <div className="input-container">
+        <label htmlFor='password'>Password</label>
+        <input type="password" id='password' className='input' name='registerPassword' value={registerPassword} onChange={onRegisterInputChange} />
+      </div>
+      <div className="input-container">
+        <label htmlFor='password'>Repeat password</label>
+        <input type="password" id='password' className='input' name='registerPasswordRep' value={registerPasswordRep} onChange={onRegisterInputChange}/>
+      </div>
+      <div className="login-btn-container">
+        <button className='login-btn'>Register</button>
+
+      </div>
+    </form>
+
+    </div>
     </div>
   )
 }
