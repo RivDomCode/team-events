@@ -5,10 +5,11 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent } from './CalendarEvent';
 import { Modal } from "./Modal";
-import { useDispatch, useSelector} from "react-redux";
-import {  eventClearActiveEvent, eventSetActive } from "../../actions/events";
+import { useDispatch} from "react-redux";
+import {  eventClearActiveEvent } from "../../actions/events";
 import { AddBtn } from "../ui/AddBtn";
 import { DeleteBtn } from "../ui/DeleteBtn";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
 
   //setup for react-big-calendar
   const localizer = momentLocalizer(moment);
@@ -18,7 +19,7 @@ import { DeleteBtn } from "../ui/DeleteBtn";
 export const EventsCalendarScreen = () => {
 
   //get data from store
-  const { events, activeEvent } = useSelector(state => state.calendar);
+  const { events, activeEvent, setActiveEvent } = useCalendarStore()
 
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");
@@ -27,6 +28,7 @@ export const EventsCalendarScreen = () => {
   //Event to trigger the modal when I double Click ot edit the event
   const openModal = (e) => {
     setIsOpen(true);
+    setActiveEvent(activeEvent);
   }
   //close modal
   const closeModal = () =>{
@@ -38,7 +40,7 @@ export const EventsCalendarScreen = () => {
 const dispatch = useDispatch()
   //Event triggered when I select the event
   const onSelectEvent = (e)=>{
-    dispatch(eventSetActive(e));
+    setActiveEvent(e)
   }
 
   const onDoubleClick = (e) => {

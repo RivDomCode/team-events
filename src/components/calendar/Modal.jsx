@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector} from "react-redux";
-import { eventAddNew, eventUpdated } from "../../actions/events";
-
+import { useState, useEffect } from "react";
 import moment from 'moment';
 import DateTimePicker from "react-datetime-picker";
 import Swal from 'sweetalert2';
+import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 const now = moment().minutes(0).seconds(0).add(1,'hours'); // 3:00:00
 const nowPlus1 = now.clone().add(1, 'hours');
@@ -16,11 +14,7 @@ const initEvent = {
 }
 
 export const Modal = ( {closeModal} ) => {
-
-  //useDispatch
-  const dispatch = useDispatch();
-  //get activeEvent from store
-  const { activeEvent } = useSelector(state => state.calendar);
+  const {activeEvent, startSavingEvent} = useCalendarStore()
 
   //react-datetime
   const [dateStart, setDateStart] = useState(now.toDate());
@@ -30,16 +24,13 @@ export const Modal = ( {closeModal} ) => {
   const [formValues, setFormValues] = useState(initEvent);
 
   const { title, notes, start, end } = formValues;
+
   //useEffect to listen changes in activeEvent
-
   useEffect(() => {
-    if (activeEvent) {
-      setFormValues(activeEvent)
-    } else {
-      setFormValues(initEvent)
+    if (activeEvent!=null) {
+      setFormValues({...activeEvent})
     }
-  }, [activeEvent, setFormValues])
-
+  }, [activeEvent])
 
   const hanldeInputChange = (e) => {
     setFormValues({
@@ -47,8 +38,6 @@ export const Modal = ( {closeModal} ) => {
       [e.target.name] : e.target.value
     })
   }
-
-
 
   //dates
   const handleStartDate = (e) => {
@@ -68,12 +57,10 @@ export const Modal = ( {closeModal} ) => {
   }
 
   //submit the form
-  const handleSubmitForm = (e)=>{
+  const handleSubmitForm = async(e)=>{
     e.preventDefault();
-
     const momentStart = moment( start );
     const momentEnd = moment( end );
-
     //form validations
     if(momentStart.isSameOrAfter(momentEnd)) {
      return  Swal.fire({
@@ -92,20 +79,11 @@ export const Modal = ( {closeModal} ) => {
         confirmButtonText: 'Ok'
       })
     }
-    //edit an event
-    if(activeEvent) {
-      dispatch(eventUpdated(formValues))
-    } else {
     //TODO: function to close modal and save in database
     //add new event
-    dispatch(eventAddNew({
-      ...formValues,
-      id: new Date().getTime()
-    }));
-    }
+    await startSavingEvent(formValues);
     //close modal after add new event
     closeModal();
-
   }
 
   return (

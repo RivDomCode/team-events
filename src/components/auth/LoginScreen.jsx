@@ -38,7 +38,6 @@ const registerSubmit = ( event ) => {
 }
 
 useEffect(() => {
-  console.log(errorMessage);
   if( errorMessage !== undefined) {
     Swal.fire('Error in authentification', errorMessage, "error")
   }
