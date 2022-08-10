@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Navbar } from '../ui/Navbar';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -19,7 +19,7 @@ import { useCalendarStore } from "../../hooks/useCalendarStore";
 export const EventsCalendarScreen = () => {
 
   //get data from store
-  const { events, activeEvent, setActiveEvent } = useCalendarStore()
+  const { events, activeEvent, setActiveEvent, startLoadingEvents } = useCalendarStore()
 
   //To get last view used when browser is reloaded
   const [lastView, setLastView] = useState(localStorage.getItem('lastview') || "month");
@@ -71,6 +71,12 @@ const dispatch = useDispatch()
   }
 
   eventStyleGetter();
+
+  //load events when component load
+  useEffect(() => {
+   startLoadingEvents()
+  }, [])
+  
 
   return (
     <main className='calendar'>

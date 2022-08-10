@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import moment from 'moment';
+// import moment from 'moment';
 
-const tempEvent = {
-    _id: new Date().getTime(),
-    title:"new event",
-    start: moment().toDate(),  //initial date using moment
-    end: moment().add(2, "hours").toDate(),    //final date, I added 2 hours
-    notes: "detail of the events ares bklalalvl",
-    user: {
-      _id:"123",
-      name: "Manolo"
-}}
+// const tempEvent = {
+//     _id: new Date().getTime(),
+//     title:"new event",
+//     start: moment().toDate(),  //initial date using moment
+//     end: moment().add(2, "hours").toDate(),    //final date, I added 2 hours
+//     notes: "detail of the events ares bklalalvl",
+//     user: {
+//       _id:"123",
+//       name: "Manolo"
+// }}
 
 export const calendarSlice = createSlice({
     name: 'calendar',
     initialState: {
+        isLoading:true,
         events: [
-            tempEvent
+            // tempEvent
         ],
         activeEvent: null,
     },
@@ -42,11 +43,14 @@ export const calendarSlice = createSlice({
                 state.events = state.events.filter(event => event._id !== state.activeEvent._id)
                 state.activeEvent = null;
             }
-
+        },
+        onLoadEvents: (state, { payload = [] }) => {
+            state.isLoading = false;
+            state.events = payload
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent } = calendarSlice.actions;
+export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents } = calendarSlice.actions;
