@@ -1,13 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { eventDeleted } from '../../actions/events';
 import Swal from 'sweetalert2';
+import { useCalendarStore } from '../../hooks/useCalendarStore';
 import { onDeleteEvent } from '../../store/calendar/calendarSlice';
 
 
 export const DeleteBtn = () => {
 
-  const dispatch = useDispatch();
+  const { startDeletingEvents } = useCalendarStore();
+
 
   const handleDelete = (e) => {
     Swal.fire({
@@ -20,7 +21,7 @@ export const DeleteBtn = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(onDeleteEvent(e));
+        startDeletingEvents();
         Swal.fire(
           'Deleted!',
           'Your file has been deleted.',

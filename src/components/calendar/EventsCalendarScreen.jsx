@@ -10,6 +10,7 @@ import {  eventClearActiveEvent } from "../../actions/events";
 import { AddBtn } from "../ui/AddBtn";
 import { DeleteBtn } from "../ui/DeleteBtn";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
   //setup for react-big-calendar
   const localizer = momentLocalizer(moment);
@@ -18,6 +19,8 @@ import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 export const EventsCalendarScreen = () => {
 
+  //Get logged user from store
+  const { user } = useAuthStore();
   //get data from store
   const { events, activeEvent, setActiveEvent, startLoadingEvents } = useCalendarStore()
 
@@ -62,15 +65,16 @@ const dispatch = useDispatch()
   //Setup events styles in react-big-calendar
   const eventStyleGetter = (event, start, end, isSelected) =>{
 
+    const isMyEvent = ( user.uid === event.user._id ) || ( user.uid === event.user.uid );
+
+
     const style = {
-      backgroundColor: "#E3C404 ",
-      opacity: "0.8",
+      backgroundColor: isMyEvent ? "#E3C404 " : "#465660",
       color:"#eee"
     }
     return {style};
   }
 
-  eventStyleGetter();
 
   //load events when component load
   useEffect(() => {
